@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bl.bootcamp.articulo.persistencia.mapper.ArticuloMapper">
+  <resultMap id="BaseResultMap" type="com.bl.bootcamp.articulo.persistencia.modelo.ArticuloBean">
+    <id column="idArticulo" jdbcType="INTEGER" property="idarticulo" />
+    <result column="descripcion" jdbcType="VARCHAR" property="descripcion" />
+    <result column="precio" jdbcType="INTEGER" property="precio" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    idArticulo, descripcion, precio
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from articulo
+    where idArticulo = #{idarticulo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from articulo
+    where idArticulo = #{idarticulo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bl.bootcamp.articulo.persistencia.modelo.ArticuloBean">
+    insert into articulo (idArticulo, descripcion, precio
+      )
+    values (#{idarticulo,jdbcType=INTEGER}, #{descripcion,jdbcType=VARCHAR}, #{precio,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bl.bootcamp.articulo.persistencia.modelo.ArticuloBean">
+    insert into articulo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idarticulo != null">
+        idArticulo,
+      </if>
+      <if test="descripcion != null">
+        descripcion,
+      </if>
+      <if test="precio != null">
+        precio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idarticulo != null">
+        #{idarticulo,jdbcType=INTEGER},
+      </if>
+      <if test="descripcion != null">
+        #{descripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="precio != null">
+        #{precio,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bl.bootcamp.articulo.persistencia.modelo.ArticuloBean">
+    update articulo
+    <set>
+      <if test="descripcion != null">
+        descripcion = #{descripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="precio != null">
+        precio = #{precio,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idArticulo = #{idarticulo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bl.bootcamp.articulo.persistencia.modelo.ArticuloBean">
+    update articulo
+    set descripcion = #{descripcion,jdbcType=VARCHAR},
+      precio = #{precio,jdbcType=INTEGER}
+    where idArticulo = #{idarticulo,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bl.bootcamp.pedido.persistencia.mapper.PedidosMapper">
+  <resultMap id="BaseResultMap" type="com.bl.bootcamp.pedido.persistencia.modelo.PedidosBean">
+    <id column="idPedido" jdbcType="INTEGER" property="idpedido" />
+    <result column="numPedido" jdbcType="INTEGER" property="numpedido" />
+    <result column="articulo" jdbcType="VARCHAR" property="articulo" />
+    <result column="NumArticulo" jdbcType="INTEGER" property="numarticulo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    idPedido, numPedido, articulo, NumArticulo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pedidos
+    where idPedido = #{idpedido,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pedidos
+    where idPedido = #{idpedido,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bl.bootcamp.pedido.persistencia.modelo.PedidosBean">
+    insert into pedidos (idPedido, numPedido, articulo, 
+      NumArticulo)
+    values (#{idpedido,jdbcType=INTEGER}, #{numpedido,jdbcType=INTEGER}, #{articulo,jdbcType=VARCHAR}, 
+      #{numarticulo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bl.bootcamp.pedido.persistencia.modelo.PedidosBean">
+    insert into pedidos
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idpedido != null">
+        idPedido,
+      </if>
+      <if test="numpedido != null">
+        numPedido,
+      </if>
+      <if test="articulo != null">
+        articulo,
+      </if>
+      <if test="numarticulo != null">
+        NumArticulo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idpedido != null">
+        #{idpedido,jdbcType=INTEGER},
+      </if>
+      <if test="numpedido != null">
+        #{numpedido,jdbcType=INTEGER},
+      </if>
+      <if test="articulo != null">
+        #{articulo,jdbcType=VARCHAR},
+      </if>
+      <if test="numarticulo != null">
+        #{numarticulo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bl.bootcamp.pedido.persistencia.modelo.PedidosBean">
+    update pedidos
+    <set>
+      <if test="numpedido != null">
+        numPedido = #{numpedido,jdbcType=INTEGER},
+      </if>
+      <if test="articulo != null">
+        articulo = #{articulo,jdbcType=VARCHAR},
+      </if>
+      <if test="numarticulo != null">
+        NumArticulo = #{numarticulo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idPedido = #{idpedido,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bl.bootcamp.pedido.persistencia.modelo.PedidosBean">
+    update pedidos
+    set numPedido = #{numpedido,jdbcType=INTEGER},
+      articulo = #{articulo,jdbcType=VARCHAR},
+      NumArticulo = #{numarticulo,jdbcType=INTEGER}
+    where idPedido = #{idpedido,jdbcType=INTEGER}
+  </update>
+</mapper>

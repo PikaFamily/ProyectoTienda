@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bl.bootcamp.factura.persistencia.mapper.FacturaMapper">
+  <resultMap id="BaseResultMap" type="com.bl.bootcamp.factura.persistencia.modelo.FacturaBean">
+    <id column="idFactura" jdbcType="INTEGER" property="idfactura" />
+    <result column="numFactura" jdbcType="INTEGER" property="numfactura" />
+    <result column="TotalDinero" jdbcType="INTEGER" property="totaldinero" />
+    <result column="fecha" jdbcType="DATE" property="fecha" />
+    <result column="ivaArticulo" jdbcType="INTEGER" property="ivaarticulo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    idFactura, numFactura, TotalDinero, fecha, ivaArticulo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from factura
+    where idFactura = #{idfactura,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from factura
+    where idFactura = #{idfactura,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bl.bootcamp.factura.persistencia.modelo.FacturaBean">
+    insert into factura (idFactura, numFactura, TotalDinero, 
+      fecha, ivaArticulo)
+    values (#{idfactura,jdbcType=INTEGER}, #{numfactura,jdbcType=INTEGER}, #{totaldinero,jdbcType=INTEGER}, 
+      #{fecha,jdbcType=DATE}, #{ivaarticulo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bl.bootcamp.factura.persistencia.modelo.FacturaBean">
+    insert into factura
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idfactura != null">
+        idFactura,
+      </if>
+      <if test="numfactura != null">
+        numFactura,
+      </if>
+      <if test="totaldinero != null">
+        TotalDinero,
+      </if>
+      <if test="fecha != null">
+        fecha,
+      </if>
+      <if test="ivaarticulo != null">
+        ivaArticulo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idfactura != null">
+        #{idfactura,jdbcType=INTEGER},
+      </if>
+      <if test="numfactura != null">
+        #{numfactura,jdbcType=INTEGER},
+      </if>
+      <if test="totaldinero != null">
+        #{totaldinero,jdbcType=INTEGER},
+      </if>
+      <if test="fecha != null">
+        #{fecha,jdbcType=DATE},
+      </if>
+      <if test="ivaarticulo != null">
+        #{ivaarticulo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bl.bootcamp.factura.persistencia.modelo.FacturaBean">
+    update factura
+    <set>
+      <if test="numfactura != null">
+        numFactura = #{numfactura,jdbcType=INTEGER},
+      </if>
+      <if test="totaldinero != null">
+        TotalDinero = #{totaldinero,jdbcType=INTEGER},
+      </if>
+      <if test="fecha != null">
+        fecha = #{fecha,jdbcType=DATE},
+      </if>
+      <if test="ivaarticulo != null">
+        ivaArticulo = #{ivaarticulo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idFactura = #{idfactura,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bl.bootcamp.factura.persistencia.modelo.FacturaBean">
+    update factura
+    set numFactura = #{numfactura,jdbcType=INTEGER},
+      TotalDinero = #{totaldinero,jdbcType=INTEGER},
+      fecha = #{fecha,jdbcType=DATE},
+      ivaArticulo = #{ivaarticulo,jdbcType=INTEGER}
+    where idFactura = #{idfactura,jdbcType=INTEGER}
+  </update>
+</mapper>

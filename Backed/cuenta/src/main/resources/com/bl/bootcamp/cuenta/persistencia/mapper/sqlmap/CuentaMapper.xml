@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bl.bootcamp.cuenta.persistencia.mapper.CuentaMapper">
+  <resultMap id="BaseResultMap" type= "com.bl.bootcamp.cuenta.persistencia.modelo.CuentaBean">
+    <id column="idCuenta" jdbcType="INTEGER" property="idcuenta" />
+    <result column="dineroCuenta" jdbcType="INTEGER" property="dineroCuenta" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    idCuenta, dineroCuenta
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cuenta
+    where idCuenta = #{idcuenta,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cuenta
+    where idCuenta = #{idcuenta,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bl.bootcamp.cuenta.persistencia.modelo.CuentaBean">
+    insert into cuenta (idCuenta, dineroCuenta)
+    values (#{idcuenta,jdbcType=INTEGER}, #{dinerocuenta,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bl.bootcamp.cuenta.persistencia.modelo.CuentaBean">
+    insert into cuenta
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcuenta != null">
+        idCuenta,
+      </if>
+      <if test="dinerocuenta != null">
+        dineroCuenta,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcuenta != null">
+        #{idcuenta,jdbcType=INTEGER},
+      </if>
+      <if test="dinerocuenta != null">
+        #{dinerocuenta,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bl.bootcamp.cuenta.persistencia.modelo.CuentaBean">
+    update cuenta
+    <set>
+      <if test="dinerocuenta != null">
+        dineroCuenta = #{dinerocuenta,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idCuenta = #{idcuenta,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bl.bootcamp.cuenta.persistencia.modelo.CuentaBean">
+    update cuenta
+    set dineroCuenta = #{dinerocuenta,jdbcType=INTEGER}
+    where idCuenta = #{idcuenta,jdbcType=INTEGER}
+  </update>
+</mapper>

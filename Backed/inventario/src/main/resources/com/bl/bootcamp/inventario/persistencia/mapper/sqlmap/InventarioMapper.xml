@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bl.bootcamp.inventario.persistencia.mapper.InventarioMapper">
+  <resultMap id="BaseResultMap" type="com.bl.bootcamp.inventario.persistencia.modelo.InventarioBean">
+    <id column="idinventario" jdbcType="INTEGER" property="idinventario" />
+    <result column="stockArticulo" jdbcType="INTEGER" property="stockarticulo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    idinventario, stockArticulo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from inventario
+    where idinventario = #{idinventario,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from inventario
+    where idinventario = #{idinventario,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bl.bootcamp.inventario.persistencia.modelo.InventarioBean">
+    insert into inventario (idinventario, stockArticulo)
+    values (#{idinventario,jdbcType=INTEGER}, #{stockarticulo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bl.bootcamp.inventario.persistencia.modelo.InventarioBean">
+    insert into inventario
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idinventario != null">
+        idinventario,
+      </if>
+      <if test="stockarticulo != null">
+        stockArticulo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idinventario != null">
+        #{idinventario,jdbcType=INTEGER},
+      </if>
+      <if test="stockarticulo != null">
+        #{stockarticulo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bl.bootcamp.inventario.persistencia.modelo.InventarioBean">
+    update inventario
+    <set>
+      <if test="stockarticulo != null">
+        stockArticulo = #{stockarticulo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idinventario = #{idinventario,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bl.bootcamp.inventario.persistencia.modelo.InventarioBean">
+    update inventario
+    set stockArticulo = #{stockarticulo,jdbcType=INTEGER}
+    where idinventario = #{idinventario,jdbcType=INTEGER}
+  </update>
+</mapper>
