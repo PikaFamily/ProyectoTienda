@@ -1,0 +1,33 @@
+<single-spa-router>
+  <!--
+
+    This is the single-spa Layout Definition for your microfrontends.
+    See https://single-spa.js.org/docs/layout-definition/ for more information.
+
+  -->
+
+  <!-- Example layouts you might find helpful:
+
+  <nav>
+    <application name="@org/navbar"></application>
+  </nav>
+  <route path="settings">
+    <application name="@org/settings"></application>
+  </route>
+
+  -->
+
+  <main>
+    <route default>
+      <div>
+      <application name="@weincode/mf-header"></application>
+    </div>
+    <div style="display: inline-block;">
+      <application name="@weincode/mf-vertical"></application>
+    </div>
+    <div style="display: inline-table; padding-left: 5%;" >  
+      <application name="@weincode/mf-main"></application>
+    </div>
+    </route>
+  </main>
+</single-spa-router>
